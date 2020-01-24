@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.legensity.b2bmall.module.user.dao.UserCompanyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.legensity.b2bmall.module.user.bean.UserCompany">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="short_name" property="shortName"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="address" property="address"/>
+        <result column="log_url" property="logUrl"/>
+        <result column="business_license_url" property="businessLicenseUrl"/>
+        <result column="org_code" property="orgCode"/>
+        <result column="status" property="status"/>
+        <result column="user_id" property="userId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, short_name AS shortName, province, city, address, log_url AS logUrl, business_license_url AS businessLicenseUrl, org_code AS orgCode, status, user_id AS userId, create_time AS createTime, update_time AS updateTime
+    </sql>
+</mapper>

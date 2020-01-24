@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/b2bmall?useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    platform: mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+  #当出现相同名字的类进行注册时，准许覆盖注册
+#  main:
+#    allow-bean-definition-overriding: true
+server:
+  port: 8080
+
+mybatis:
+  type-aliases-package: com.legensity.b2bmall.*.entity
+  mapper-locations: classpath*:com/legensity/b2bmall/*/dao/*.xml
+  global-config:
+    id-type: 0
+    field-strategy: 2
+    capital-mode: true
+    refresh-mapper: true
