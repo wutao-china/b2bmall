@@ -4,12 +4,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.legensity.b2bmall.config.SysParamConfig;
 import com.legensity.b2bmall.jwt.JwtToken;
+import com.legensity.b2bmall.module.user.bean.User;
 import com.legensity.b2bmall.result.ResponseData;
 import com.legensity.b2bmall.result.ResponseDataUtil;
 import com.legensity.b2bmall.util.AESUtil;
+import com.legensity.b2bmall.util.JwtUtilRedis;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -31,6 +34,12 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @Component//这个注入与否影响不大
 public class JwtFilter extends BasicHttpAuthenticationFilter implements Filter {
+    private JwtUtilRedis jwtUtilRedis;
+
+    public JwtFilter(JwtUtilRedis jwtUtilRedis) {
+        this.jwtUtilRedis = jwtUtilRedis;
+    }
+
     /**
      * 执行登录
      * @param request
@@ -43,26 +52,28 @@ public class JwtFilter extends BasicHttpAuthenticationFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String token = httpServletRequest.getHeader("Authorization");
         if (StringUtils.isEmpty(token)) {
-            token = String.valueOf(request.getAttribute("token"));
+            token = httpServletRequest.getParameter("token");
         }
         // 解密
-        token = AESUtil.decryptAES(token,SysParamConfig.TOKEN_KEY);
-        System.out.println(token);
-        JwtToken jwtToken = new JwtToken(token);
+        //JwtToken jwtToken = new JwtToken(token);
         // 提交给realm进行登入，如果错误他会抛出异常并被捕获
         try {
-            getSubject(request, response).login(jwtToken);
+            //getSubject(request, response).login(jwtToken);
             // 如果没有抛出异常则代表登入成功，返回true
-            return true;
+            User userByToken = jwtUtilRedis.getUserByToken(token);
+            if(userByToken != null){
+                return true;
+            }else {
+                throw new AuthenticationException("权限无效");
+            }
         } catch (AuthenticationException e) {
             ResponseData responseData = ResponseDataUtil.authorizationFailed( "没有访问权限，原因是:" + e.getMessage());
             //SerializerFeature.WriteMapNullValue为了null属性也输出json的键值对
             Object o = JSONObject.toJSONString(responseData, SerializerFeature.WriteMapNullValue);
             response.setCharacterEncoding("utf-8");
             response.getWriter().print(o);
-            return false;
         }
-
+        return false;
     }
 
     /**

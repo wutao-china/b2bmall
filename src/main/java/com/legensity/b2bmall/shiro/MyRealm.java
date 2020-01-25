@@ -5,6 +5,7 @@ import com.legensity.b2bmall.jwt.JwtToken;
 import com.legensity.b2bmall.module.user.bean.User;
 import com.legensity.b2bmall.module.user.service.IUserService;
 import com.legensity.b2bmall.util.JwtUtil;
+import com.legensity.b2bmall.util.JwtUtilRedis;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -30,6 +31,9 @@ public class MyRealm extends AuthorizingRealm {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private JwtUtilRedis jwtUtilRedis;
 
     /**
      * 必须重写此方法，不然Shiro会报错
@@ -67,7 +71,7 @@ public class MyRealm extends AuthorizingRealm {
         String username = null;
         try {
             //这里工具类没有处理空指针等异常这里处理一下(这里处理科学一些)
-            username = JwtUtil.getUsername(token);
+            username = jwtUtilRedis.getUsername(token);
         } catch (Exception e) {
             throw new AuthenticationException("heard的token拼写错误或者值为空");
         }

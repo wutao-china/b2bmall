@@ -6,6 +6,8 @@ import com.legensity.b2bmall.module.user.bean.User;
 import com.legensity.b2bmall.module.user.service.IUserService;
 import com.legensity.b2bmall.util.AESUtil;
 import com.legensity.b2bmall.util.JwtUtil;
+import com.legensity.b2bmall.util.JwtUtilRedis;
+import com.legensity.b2bmall.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class LoginController {
     private static Logger logger = LoggerFactory.getLogger(LoginController.class);
     @Autowired
     private IUserService userService;
+    @Autowired
+    private JwtUtilRedis jwtUtilRedis;
     /**
      * 登录
      */
@@ -35,16 +39,9 @@ public class LoginController {
         User user = userService.selectUserWithDetailByMobile(username);
         if (user != null && user.getPassword().equals(password)) {
             //根据电话号码和密码加密生成
-            String token = JwtUtil.sign(user.getMobile(), user.getPassword());
-            System.out.println(token);
-            String aes = null;
-            try {
-                aes = AESUtil.encryptAES(token, SysParamConfig.TOKEN_KEY);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return aes;
+            //String token = JwtUtil.sign(user.getMobile(), user.getPassword());
+            String token = jwtUtilRedis.sign(user, user.getPassword());
+            return token;
         }
         return ResponseDataUtil.failure("登录失败!");
     }
