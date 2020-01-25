@@ -4,6 +4,7 @@ import com.legensity.b2bmall.module.user.bean.User;
 import com.legensity.b2bmall.module.user.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,10 @@ public class UserController {
      * 用户查询.
      */
     @ApiOperation(value="根据手机号查询用户", notes="根据手机号查询用户", produces="application/json")
-    @ApiImplicitParam(name = "mobile", value = "手机号", paramType = "query", required = true, dataType = "String")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "mobile", value = "手机号", paramType = "query", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "token", value = "token", paramType = "query", required = true, dataType = "String")
+    })
     @RequestMapping(value = "/user/userList", method = RequestMethod.GET)
     @ResponseBody
     public User getUserByMobile(String mobile){
