@@ -44,7 +44,7 @@ public class LoginController {
     })
     public ResponseData login(String mobile, String password) {
         User user = userService.selectUserWithDetailByMobile(mobile);
-        if (user == null && !user.getPassword().equals(password)) {
+        if (user == null || !user.getPassword().equals(password)) {
             return ResponseDataUtil.failure(ErrorCode.INTERFACE_USER_PASSWORD_ERROR);
         }
         //根据电话号码和密码加密生成

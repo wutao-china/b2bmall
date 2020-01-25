@@ -2,6 +2,7 @@ package com.legensity.b2bmall.module.user.controller;
 
 import com.legensity.b2bmall.module.user.bean.User;
 import com.legensity.b2bmall.module.user.service.IUserService;
+import com.legensity.b2bmall.shiro.ShiroUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -36,6 +37,8 @@ public class UserController {
     @RequestMapping(value = "/user/userList", method = RequestMethod.GET)
     @ResponseBody
     public User getUserByMobile(String mobile){
+        User user = ShiroUtil.getUser();
+
         User userByMobile = userService.selectUserWithDetailByMobile(mobile);
         return userByMobile;
     }

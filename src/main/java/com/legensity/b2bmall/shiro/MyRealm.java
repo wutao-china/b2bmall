@@ -84,6 +84,6 @@ public class MyRealm extends AuthorizingRealm {
             log.error("用户名或密码错误(token无效或者与登录者不匹配)!)");
             throw new AuthenticationException("用户名或密码错误(token无效或者与登录者不匹配)!");
         }
-        return new SimpleAuthenticationInfo(token, token, "my_realm");
+        return new SimpleAuthenticationInfo(userBean, token, "my_realm");
     }
 }
