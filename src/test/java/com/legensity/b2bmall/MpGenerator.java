@@ -111,6 +111,7 @@ public class MpGenerator {
         pc.setController("controller");
         pc.setEntity("bean");
         pc.setXml("bean");
+        pc.setController("controller");
         mpg.setPackageInfo(pc);
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 【可无】  ${cfg.abc}
