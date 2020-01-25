@@ -14,4 +14,5 @@ import com.legensity.b2bmall.module.user.bean.UserCompany;
  */
 public interface IUserCompanyService extends IService<UserCompany> {
 
+    Integer insert(UserCompany userCompany);
 }

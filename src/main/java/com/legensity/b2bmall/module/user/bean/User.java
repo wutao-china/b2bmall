@@ -1,5 +1,8 @@
 package com.legensity.b2bmall.module.user.bean;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.util.Date;
@@ -20,6 +23,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @TableId(value="ID", type= IdType.AUTO)
     @ApiModelProperty(notes = "id", dataType = "Integer")
     private Integer id;
 
@@ -48,6 +52,7 @@ public class User implements Serializable {
     private Date updateTime;
 
     @ApiModelProperty(notes = "用户公司", dataType = "userCompany")
+    @TableField(exist=false)
     private UserCompany userCompany;
 
     public Integer getId() {

@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.legensity.b2bmall.**.dao")
 public class B2bmallApplication {
 
     public static void main(String[] args) {

@@ -26,4 +26,8 @@ public class UserCompanyServiceImpl extends ServiceImpl<UserCompanyMapper, UserC
     private UserCompanyMapper userCompanyMapper;
 
 
+    @Override
+    public Integer insert(UserCompany userCompany) {
+        return userCompanyMapper.insert(userCompany);
+    }
 }

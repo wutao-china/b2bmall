@@ -32,6 +32,7 @@ public class DefaultExceptionHandler {
         responseData.setCode(500);
         responseData.setMsg(e.getMessage());
         responseData.setData(null);
+        e.printStackTrace();
         return responseData;
     }
     /**
@@ -45,6 +46,7 @@ public class DefaultExceptionHandler {
         responseData.setCode(500);
         responseData.setMsg("系统异常");
         responseData.setData(null);
+        e.printStackTrace();
         return responseData;
     }
 

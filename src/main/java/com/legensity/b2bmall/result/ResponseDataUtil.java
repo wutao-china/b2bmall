@@ -1,5 +1,8 @@
 package com.legensity.b2bmall.result;
 
+import com.legensity.b2bmall.enums.ErrorCode;
+import com.legensity.b2bmall.module.user.bean.User;
+
 /**
  * ResponseDataUtil:返回的工具类,主要是方便返回的写法
  * 单纯的返回工具类,直接放在这个包
@@ -50,6 +53,19 @@ public class ResponseDataUtil {
     }
 
     /**
+     * 返回失败的带code的异常
+     * @param code
+     * @return
+     */
+    public static ResponseData failure(Integer code){
+        ResponseData ResponseData=new ResponseData();
+        ResponseData.setCode(code);
+        ResponseData.setMsg(null);
+        ResponseData.setData(code);
+        return ResponseData;
+    }
+
+    /**
      * 登录授权的异常
      * @param msg
      * @return
@@ -77,4 +93,16 @@ public class ResponseDataUtil {
         return ResponseData;
     }
 
+    /**
+     * 返回失败的描述信息
+     * @param errorCode
+     * @return
+     */
+    public static ResponseData failure(ErrorCode errorCode) {
+        ResponseData ResponseData=new ResponseData();
+        ResponseData.setCode(errorCode.getCode());
+        ResponseData.setMsg(errorCode.getDesc());
+        ResponseData.setData(null);
+        return ResponseData;
+    }
 }
