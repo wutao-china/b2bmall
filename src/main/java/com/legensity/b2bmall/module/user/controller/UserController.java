@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author jinbin
- * @date 2017-12-01 21:36
+ * @author wutao
+ * @date 2020-01-23 21:36
  */
 @Api(tags = "用户API接口")
 @RestController

@@ -10,14 +10,14 @@ package com.legensity.b2bmall.result;
 public class ResponseDataUtil {
     /**
      * 返回成功描述
-     * @param msg
+     * @param data
      * @return
      */
-    public static ResponseData success(String msg){
+    public static ResponseData success(Object data){
         ResponseData ResponseData=new ResponseData();
         ResponseData.setCode(200);
-        ResponseData.setMsg(msg);
-        ResponseData.setData(null);
+        ResponseData.setMsg("成功");
+        ResponseData.setData(data);
         return ResponseData;
     }
 

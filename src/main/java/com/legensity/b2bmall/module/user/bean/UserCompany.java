@@ -17,7 +17,7 @@ import java.util.Date;
 public class UserCompany implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(notes = "", dataType = "Integer")
+    @ApiModelProperty(notes = "id", dataType = "Integer")
     private Integer id;
 
     @ApiModelProperty(notes = "公司名称", dataType = "String")
@@ -50,10 +50,10 @@ public class UserCompany implements Serializable {
     @ApiModelProperty(notes = "联系人id", dataType = "Integer")
     private Integer userId;
 
-    @ApiModelProperty(notes = "", dataType = "Date")
+    @ApiModelProperty(notes = "创建时间", dataType = "Date")
     private Date createTime;
 
-    @ApiModelProperty(notes = "", dataType = "Date")
+    @ApiModelProperty(notes = "创建时间", dataType = "Date")
     private Date updateTime;
 
     public Integer getId() {

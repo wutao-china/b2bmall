@@ -38,13 +38,13 @@ public class User implements Serializable {
     @ApiModelProperty(notes = "用户名 ", dataType = "String")
     private String name;
 
-    @ApiModelProperty(notes = "", dataType = "Integer")
+    @ApiModelProperty(notes = "性别", dataType = "Integer")
     private Integer sex;
 
-    @ApiModelProperty(notes = "", dataType = "Date")
+    @ApiModelProperty(notes = "创建时间", dataType = "Date")
     private Date createTime;
 
-    @ApiModelProperty(notes = "", dataType = "Date")
+    @ApiModelProperty(notes = "更新时间", dataType = "Date")
     private Date updateTime;
 
     @ApiModelProperty(notes = "用户公司", dataType = "userCompany")

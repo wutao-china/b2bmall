@@ -19,8 +19,4 @@
     <sql id="Base_Column_List">
         id, mobile, password, salt, status, name, sex, create_time, update_time
     </sql>
-
-    <!--<select id="selectUserByMobile" resultMap="BaseResultMap">-->
-        <!--select <include refid="Base_Column_List"/> from t_user where mobile=#{mobile}-->
-    <!--</select>-->
 </mapper>
