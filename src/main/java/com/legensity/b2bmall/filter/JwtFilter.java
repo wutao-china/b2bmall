@@ -2,11 +2,10 @@ package com.legensity.b2bmall.filter;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.legensity.b2bmall.config.SysParamConfig;
 import com.legensity.b2bmall.jwt.JwtToken;
+import com.legensity.b2bmall.module.user.bean.User;
 import com.legensity.b2bmall.result.ResponseData;
 import com.legensity.b2bmall.result.ResponseDataUtil;
-import com.legensity.b2bmall.util.AESUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
@@ -49,6 +48,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter implements Filter {
         // 提交给realm进行登入，如果错误他会抛出异常并被捕获
         try {
             getSubject(request, response).login(jwtToken);
+            log.info("url={} userId={}",httpServletRequest.getRequestURL(),((User)getSubject(request, response).getPrincipal()).getId());
             // 如果没有抛出异常则代表登入成功，返回true
             return true;
         } catch (AuthenticationException e) {

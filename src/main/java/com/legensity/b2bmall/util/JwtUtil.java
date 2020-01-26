@@ -38,7 +38,7 @@ public class JwtUtil {
                     .build();
             //效验TOKEN
             DecodedJWT jwt = verifier.verify(token);
-            log.info("登录验证成功!");
+            log.debug("登录验证成功!");
             return true;
         } catch (Exception exception) {
             log.error("JwtUtil登录验证失败!");

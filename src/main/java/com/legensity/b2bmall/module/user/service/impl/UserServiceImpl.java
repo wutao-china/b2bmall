@@ -31,8 +31,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             QueryWrapper<UserCompany> wrapper = new QueryWrapper<>();
             wrapper.eq(UserCompany.USER_ID , user.getId());
             UserCompany userCompany = userCompanyService.getOne(wrapper);
-            IPage page = new Page();
-            UserCompany userCompany = userCompanyService.page(wrapper);
+            //IPage page = new Page();
+            //UserCompany userCompany = userCompanyService.page(wrapper);
             user.setUserCompany(userCompany);
         }
         return user;
