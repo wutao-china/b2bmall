@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author wutao
  * @date 2020-01-23 21:36
@@ -50,8 +53,10 @@ public class LoginController {
         //根据电话号码和密码加密生成
         String token = JwtUtil.sign(user.getMobile(), user.getPassword());
         log.debug("登录token={}", token);
-        return ResponseDataUtil.success(token);
-
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("token", token);
+        dataMap.put("user", user);
+        return ResponseDataUtil.success(dataMap);
     }
 
     @PostMapping("/register")
@@ -67,7 +72,7 @@ public class LoginController {
         }
 
         UserCompany userCompany = new UserCompany();
-        userCompany.setName(userLoginVO.getName());
+        userCompany.setName(userLoginVO.getOrgName());
         BeanUtils.copyProperties(userLoginVO, userCompany);
 
         User user = new User();
