@@ -1,8 +1,9 @@
 package com.legensity.b2bmall.module.user.controller;
 
+import com.legensity.b2bmall.module.common.BaseController;
 import com.legensity.b2bmall.module.user.bean.User;
 import com.legensity.b2bmall.module.user.service.IUserService;
-import com.legensity.b2bmall.shiro.ShiroUtil;
+import com.legensity.b2bmall.util.ShiroUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "用户API接口")
 @RestController
 @RequestMapping("/api")
-public class UserController {
+public class UserController extends BaseController {
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private IUserService userService;
@@ -32,12 +33,12 @@ public class UserController {
     @ApiOperation(value="根据手机号查询用户", notes="根据手机号查询用户", produces="application/json")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "mobile", value = "手机号", paramType = "query", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "token", value = "token", paramType = "query", required = true, dataType = "String")
+            @ApiImplicitParam(name = "Authorization", value = "token", paramType = "header", required = true, dataType = "String")
     })
     @RequestMapping(value = "/user/userList", method = RequestMethod.GET)
     @ResponseBody
     public User getUserByMobile(String mobile){
-        User user = ShiroUtil.getUser();
+        User user = getCurrentUser();
 
         User userByMobile = userService.selectUserWithDetailByMobile(mobile);
         return userByMobile;

@@ -1,4 +1,4 @@
-package com.legensity.b2bmall.shiro;
+package com.legensity.b2bmall.util;
 
 import com.legensity.b2bmall.module.user.bean.User;
 import org.apache.shiro.SecurityUtils;

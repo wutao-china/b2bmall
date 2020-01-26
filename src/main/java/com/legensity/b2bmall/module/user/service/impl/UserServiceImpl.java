@@ -1,6 +1,8 @@
 package com.legensity.b2bmall.module.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.legensity.b2bmall.module.user.bean.User;
 import com.legensity.b2bmall.module.user.dao.UserMapper;
@@ -29,6 +31,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             QueryWrapper<UserCompany> wrapper = new QueryWrapper<>();
             wrapper.eq(UserCompany.USER_ID , user.getId());
             UserCompany userCompany = userCompanyService.getOne(wrapper);
+            IPage page = new Page();
+            UserCompany userCompany = userCompanyService.page(wrapper);
             user.setUserCompany(userCompany);
         }
         return user;

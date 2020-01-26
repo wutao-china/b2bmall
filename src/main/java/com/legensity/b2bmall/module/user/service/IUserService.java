@@ -27,4 +27,6 @@ public interface IUserService extends IService<com.legensity.b2bmall.module.user
      * @return
      */
     Boolean checkMobileExist(String mobile);
+
+
 }
