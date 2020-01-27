@@ -24,3 +24,13 @@ mybatis:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#短信
+message:
+  serviceURL: app.cloopen.com
+  serviceToken: f268f797901442f29beeee7d32424b7a
+  serviceSID: 8aaf070856d4826c0156d93c8ff505cd
+  serviceAppID: 8aaf07086e0115bb016e7ca6f95144a9
+  smsVerifyCodeTemplate: 486069
+
+

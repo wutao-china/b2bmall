@@ -22,11 +22,11 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build().apiInfo(new ApiInfoBuilder()
                         .title("B2B平台")
-                        .description("SB2B平台接口文档")
+                        .description("B2B平台接口文档")
                         .version("1.0")
                         .contact(new Contact("卓建网络","http://www.jzlwbao.com","aaa@gmail.com"))
                         .license("The Apache License")
-                        .licenseUrl("http://www.jzlwbao.com")
+                        .termsOfServiceUrl("localhost:8080/demo1/")
                         .build());
     }
 }

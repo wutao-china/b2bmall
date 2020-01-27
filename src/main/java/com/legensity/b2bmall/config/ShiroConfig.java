@@ -47,6 +47,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/**/swagger**/**", "anon");
         filterChainDefinitionMap.put("/webjars/**", "anon");
         filterChainDefinitionMap.put("/v2/**", "anon");
+        filterChainDefinitionMap.put("/csrf/**", "anon");
 
         //filterChainDefinitionMap.put("/api/**", "authc");
         // 添加自己的过滤器并且取名为jwt
