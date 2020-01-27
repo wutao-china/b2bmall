@@ -4,7 +4,8 @@ public enum ErrorCode {
 
     INTERFACE_PARAM_MISS(1000, "参数缺失"),
     INTERFACE_MOBILE_REGISTERED(1001, "手机号已注册"),
-    INTERFACE_USER_PASSWORD_ERROR(1001, "用户名或密码错误")
+    INTERFACE_USER_PASSWORD_ERROR(1002, "用户名或密码错误"),
+    INTERFACE_VERIFICATIONCODE_ERROR(1003, "用户名或密码错误")
     ;
 
     private Integer code;

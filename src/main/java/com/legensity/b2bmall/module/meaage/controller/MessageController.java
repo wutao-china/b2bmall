@@ -1,5 +1,6 @@
 package com.legensity.b2bmall.module.meaage.controller;
 
+import com.legensity.b2bmall.enums.ErrorCode;
 import com.legensity.b2bmall.module.meaage.service.IMessageService;
 import com.legensity.b2bmall.result.ResponseData;
 import com.legensity.b2bmall.result.ResponseDataUtil;
@@ -32,16 +33,31 @@ public class MessageController {
      * @param identifier
      * @return
      */
-
     @ApiOperation(value="发送验证码", notes="用户名密码注册", produces="application/json")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "identifier", value = "手机号", paramType = "query", required = true, dataType = "String"),
             @ApiImplicitParam(name = "Authorization", value = "token", paramType = "header", required = true, dataType = "String")
     })
-    @GetMapping("/message/verificationCode")
+    @GetMapping("/message/sendVerificationCode")
     @ResponseBody
     public ResponseData sendVerificationCode(@RequestParam String identifier){
         String verificationCode = messageService.sendVerificationCode(identifier);
         return ResponseDataUtil.success(verificationCode);
+    }
+
+    @ApiOperation(value="验证验证码", notes="验证验证码", produces="application/json")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "identifier", value = "手机号", paramType = "query", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "verificationCode", value = "验证码", paramType = "query", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "Authorization", value = "token", paramType = "header", required = true, dataType = "String")
+    })
+    @GetMapping("/message/verifyCode")
+    @ResponseBody
+    public ResponseData verifyCode(String identifier, String verificationCode){
+        if (messageService.verifyCode(identifier, verificationCode)) {
+            return ResponseDataUtil.success(true);
+        }
+
+        return ResponseDataUtil.success(false);
     }
 }

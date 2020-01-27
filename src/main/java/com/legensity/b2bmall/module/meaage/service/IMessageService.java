@@ -8,4 +8,6 @@ package com.legensity.b2bmall.module.meaage.service;
  **/
 public interface IMessageService {
     String sendVerificationCode(String identifier);
+
+    Boolean verifyCode(String identifier, String verificationCode);
 }

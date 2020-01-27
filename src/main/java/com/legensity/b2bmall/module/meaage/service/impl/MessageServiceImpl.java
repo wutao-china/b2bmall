@@ -14,7 +14,7 @@ import org.springframework.util.StringUtils;
  * @create: 2020/01/26 21:31
  **/
 @Service
-public class MessageServiceImpl implements IMessageService {
+public class MessageServiceImpl implements IMessageService{
 
     @Autowired
     private MessageManager messageManager;
@@ -34,7 +34,8 @@ public class MessageServiceImpl implements IMessageService {
         return code;
     }
 
-    public Boolean verifyCode(Integer id, String verificationCode){
-        return false;
+    @Override
+    public Boolean verifyCode(String identifier, String verificationCode){
+        return messageManager.verifyCode(identifier, verificationCode);
     }
 }
