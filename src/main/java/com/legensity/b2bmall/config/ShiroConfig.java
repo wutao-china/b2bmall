@@ -21,7 +21,7 @@ import java.util.Map;
  * ShiroConfig:shiro 配置类,配置哪些拦截,哪些不拦截,哪些授权等等各种配置都在这里
  *
  * @author wutao
- * @date: 2020/0/23
+ * @date: 2020/01/23
  */
 @Configuration
 public class ShiroConfig {
@@ -48,6 +48,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/webjars/**", "anon");
         filterChainDefinitionMap.put("/v2/**", "anon");
         filterChainDefinitionMap.put("/csrf/**", "anon");
+        filterChainDefinitionMap.put("/message/**", "anon");
 
         //filterChainDefinitionMap.put("/api/**", "authc");
         // 添加自己的过滤器并且取名为jwt
