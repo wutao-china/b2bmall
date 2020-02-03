@@ -3,7 +3,7 @@ package com.legensity.b2bmall.filter;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.legensity.b2bmall.jwt.JwtToken;
-import com.legensity.b2bmall.module.user.bean.User;
+import com.legensity.b2bmall.module.user.pojo.User;
 import com.legensity.b2bmall.result.ResponseData;
 import com.legensity.b2bmall.result.ResponseDataUtil;
 import lombok.extern.slf4j.Slf4j;

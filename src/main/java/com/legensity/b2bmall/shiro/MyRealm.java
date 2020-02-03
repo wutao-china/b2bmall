@@ -2,7 +2,7 @@ package com.legensity.b2bmall.shiro;
 
 
 import com.legensity.b2bmall.jwt.JwtToken;
-import com.legensity.b2bmall.module.user.bean.User;
+import com.legensity.b2bmall.module.user.pojo.User;
 import com.legensity.b2bmall.module.user.service.IUserService;
 import com.legensity.b2bmall.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -69,7 +69,7 @@ public class MyRealm extends AuthorizingRealm {
             //这里工具类没有处理空指针等异常这里处理一下(这里处理科学一些)
             username = JwtUtil.getUsername(token);
         } catch (Exception e) {
-            throw new AuthenticationException("heard的token拼写错误或者值为空");
+            throw new AuthenticationException("token错误");
         }
         if (username == null) {
           log.error("token无效(空''或者null都不行!)");

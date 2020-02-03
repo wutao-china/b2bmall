@@ -1,10 +1,10 @@
 package com.legensity.b2bmall.module.user.controller;
 
 import com.legensity.b2bmall.enums.ErrorCode;
-import com.legensity.b2bmall.module.user.bean.User;
-import com.legensity.b2bmall.module.user.bean.UserCompany;
+import com.legensity.b2bmall.module.user.pojo.User;
+import com.legensity.b2bmall.module.user.pojo.UserCompany;
 import com.legensity.b2bmall.module.user.service.IUserService;
-import com.legensity.b2bmall.module.user.vo.UserLoginVO;
+import com.legensity.b2bmall.module.user.pojo.UserLoginVO;
 import com.legensity.b2bmall.result.ResponseData;
 import com.legensity.b2bmall.result.ResponseDataUtil;
 import com.legensity.b2bmall.util.JwtUtil;

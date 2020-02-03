@@ -1,6 +1,6 @@
 package com.legensity.b2bmall.util;
 
-import com.legensity.b2bmall.module.user.bean.User;
+import com.legensity.b2bmall.module.user.pojo.User;
 import org.apache.shiro.SecurityUtils;
 
 /**

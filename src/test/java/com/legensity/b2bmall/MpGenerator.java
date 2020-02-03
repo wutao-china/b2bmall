@@ -80,7 +80,7 @@ public class MpGenerator {
         strategy.setInclude(new Scanner(System.in).nextLine().split(",")); // 需要生成的表
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         // 自定义实体父类
-        //strategy.setSuperEntityClass("com.legensity.b2bmall.module.user.bean.BaseEntity");
+        //strategy.setSuperEntityClass("com.legensity.b2bmall.module.user.pojo.BaseEntity");
         // 自定义实体，公共字段
         // strategy.setSuperEntityColumns(new String[] { "test_id", "age" });
         // 自定义 mapper 父类
@@ -109,8 +109,8 @@ public class MpGenerator {
             pc.setModuleName(string);
         }
         pc.setController("controller");
-        pc.setEntity("bean");
-        pc.setXml("bean");
+        pc.setEntity("pojo");
+        pc.setXml("pojo");
         pc.setController("controller");
         mpg.setPackageInfo(pc);
 

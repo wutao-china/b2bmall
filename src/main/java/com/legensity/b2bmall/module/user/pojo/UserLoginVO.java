@@ -1,4 +1,4 @@
-package com.legensity.b2bmall.module.user.vo;
+package com.legensity.b2bmall.module.user.pojo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

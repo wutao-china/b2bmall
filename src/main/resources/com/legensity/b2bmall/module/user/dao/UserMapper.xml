@@ -3,7 +3,7 @@
 <mapper namespace="com.legensity.b2bmall.module.user.dao.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.legensity.b2bmall.module.user.bean.User">
+    <resultMap id="BaseResultMap" type="com.legensity.b2bmall.module.user.pojo.User">
         <id column="id" property="id" />
         <result column="mobile" property="mobile" />
         <result column="password" property="password" />
@@ -19,4 +19,32 @@
     <sql id="Base_Column_List">
         id, mobile, password, salt, status, name, sex, create_time, update_time
     </sql>
+
+    <resultMap type="com.legensity.b2bmall.module.user.pojo.User" extends="BaseResultMap" id="UserCompanyResultMap">
+        <association property="userCompany" javaType="com.legensity.b2bmall.module.user.pojo.UserCompany">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="user_id" property="userId"/>
+            <result column="short_name" property="shortName"/>
+            <result column="province" property="province"/>
+            <result column="city" property="city"/>
+            <result column="address" property="address"/>
+            <result column="log_url" property="logUrl"/>
+            <result column="business_license_url" property="businessLicenseUrl"/>
+            <result column="org_code" property="orgCode"/>
+            <result column="status" property="status"/>
+            <result column="user_id" property="userId"/>
+            <result column="create_time" property="createTime"/>
+            <result column="update_time" property="updateTime"/>
+        </association>
+    </resultMap>
+
+    <select id="selectUserWithDetailByMobile" resultMap="UserCompanyResultMap">
+        select u.*,
+        uc.*
+        from t_user u
+        join t_user_company uc
+        on u.id= uc.user_id
+        where mobile = #{mobile}
+    </select>
 </mapper>

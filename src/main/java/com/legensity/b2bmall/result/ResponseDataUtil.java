@@ -1,7 +1,6 @@
 package com.legensity.b2bmall.result;
 
 import com.legensity.b2bmall.enums.ErrorCode;
-import com.legensity.b2bmall.module.user.bean.User;
 
 /**
  * ResponseDataUtil:返回的工具类,主要是方便返回的写法

@@ -1,6 +1,6 @@
 package com.legensity.b2bmall.module.common;
 
-import com.legensity.b2bmall.module.user.bean.User;
+import com.legensity.b2bmall.module.user.pojo.User;
 import com.legensity.b2bmall.util.ShiroUtil;
 
 /**

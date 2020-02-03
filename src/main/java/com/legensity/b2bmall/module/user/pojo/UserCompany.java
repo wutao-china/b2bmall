@@ -1,4 +1,4 @@
-package com.legensity.b2bmall.module.user.bean;
+package com.legensity.b2bmall.module.user.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

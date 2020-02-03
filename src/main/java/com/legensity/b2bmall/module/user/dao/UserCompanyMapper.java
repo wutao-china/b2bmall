@@ -1,7 +1,7 @@
 package com.legensity.b2bmall.module.user.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.legensity.b2bmall.module.user.bean.UserCompany;
+import com.legensity.b2bmall.module.user.pojo.UserCompany;
 
 /**
  * <p>

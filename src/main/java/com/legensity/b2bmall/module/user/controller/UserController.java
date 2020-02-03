@@ -1,9 +1,8 @@
 package com.legensity.b2bmall.module.user.controller;
 
 import com.legensity.b2bmall.module.common.BaseController;
-import com.legensity.b2bmall.module.user.bean.User;
+import com.legensity.b2bmall.module.user.pojo.User;
 import com.legensity.b2bmall.module.user.service.IUserService;
-import com.legensity.b2bmall.util.ShiroUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
