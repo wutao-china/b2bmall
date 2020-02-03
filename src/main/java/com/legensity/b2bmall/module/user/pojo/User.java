@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -19,6 +21,8 @@ import java.io.Serializable;
  * @author wutao
  * @since 2020-01-23
  */
+@Setter
+@Getter
 @TableName("t_user")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -50,98 +54,6 @@ public class User implements Serializable {
 
     @ApiModelProperty(notes = "更新时间", dataType = "Date")
     private Date updateTime;
-
-    @ApiModelProperty(notes = "用户公司", dataType = "userCompany")
-    @TableField(exist=false)
-    private UserCompany userCompany;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public Integer getSex() {
-        return sex;
-    }
-
-    public void setSex(Integer sex) {
-        this.sex = sex;
-    }
-
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public void setUserCompany(UserCompany userCompany) {
-        this.userCompany = userCompany;
-    }
-
-    public UserCompany getUserCompany() {
-        return userCompany;
-    }
 
     public static final String ID = "id";
 

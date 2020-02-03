@@ -7,22 +7,22 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @program: b2bmall
+ * @description: 注册登录VO
+ * @author: wutao
+ * @create: 2020/02/03 13:17
+ **/
 @Setter
 @Getter
-public class UserLoginVO implements Serializable {
+public class UserCompanyDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(notes = "id", dataType = "Integer")
-    private Integer id;
+    @ApiModelProperty(notes = "用户id", dataType = "Integer")
+    private Integer userId;
 
     @ApiModelProperty(notes = "手机号", dataType = "String")
     private String mobile;
-
-    @ApiModelProperty(notes = "密码", dataType = "String")
-    private String password;
-
-    @ApiModelProperty(notes = "盐", dataType = "String")
-    private String salt;
 
     @ApiModelProperty(notes = "状态", dataType = "Integer")
     private Integer status;
@@ -62,7 +62,4 @@ public class UserLoginVO implements Serializable {
 
     @ApiModelProperty(notes = "社会信用代码", dataType = "String")
     private String orgCode;
-
-    @ApiModelProperty(notes = "联系人id", dataType = "Integer")
-    private Integer userId;
 }

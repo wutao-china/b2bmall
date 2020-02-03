@@ -1,10 +1,12 @@
 package com.legensity.b2bmall.module.user.controller;
 
 import com.legensity.b2bmall.enums.ErrorCode;
+import com.legensity.b2bmall.module.meaage.service.IMessageService;
 import com.legensity.b2bmall.module.user.pojo.User;
-import com.legensity.b2bmall.module.user.pojo.UserCompany;
+import com.legensity.b2bmall.module.user.pojo.UserCompanyDTO;
+import com.legensity.b2bmall.module.user.pojo.UserRegisterDTO;
+import com.legensity.b2bmall.module.user.pojo.UserCompanyVO;
 import com.legensity.b2bmall.module.user.service.IUserService;
-import com.legensity.b2bmall.module.user.pojo.UserLoginVO;
 import com.legensity.b2bmall.result.ResponseData;
 import com.legensity.b2bmall.result.ResponseDataUtil;
 import com.legensity.b2bmall.util.JwtUtil;
@@ -15,10 +17,12 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +36,9 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IMessageService messageService;
 
     /**
      * 登录
@@ -61,27 +68,27 @@ public class LoginController {
 
     @PostMapping("/register")
     @ApiOperation(value="注册", notes="用户名密码注册", produces="application/json")
-    public ResponseData<User> register(@RequestBody UserLoginVO userLoginVO) {
-        if (userLoginVO == null) {
+    public ResponseData<UserCompanyVO> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
+        if (userRegisterDTO == null || StringUtils.isEmpty(userRegisterDTO.getMobile())) {
             return ResponseDataUtil.failure(ErrorCode.INTERFACE_PARAM_MISS);
         }
 
         // 检查手机号
-        if (userService.checkMobileExist(userLoginVO.getMobile())) {
+        if (userService.checkMobileExist(userRegisterDTO.getMobile())) {
             return ResponseDataUtil.failure(ErrorCode.INTERFACE_MOBILE_REGISTERED);
         }
 
-        UserCompany userCompany = new UserCompany();
-        userCompany.setName(userLoginVO.getOrgName());
-        BeanUtils.copyProperties(userLoginVO, userCompany);
+        // 验证码
+        if (StringUtils.isEmpty(userRegisterDTO.getVerificationCode()) ||
+                !messageService.verifyCode(userRegisterDTO.getMobile(), userRegisterDTO.getVerificationCode())) {
+            return ResponseDataUtil.failure(ErrorCode.INTERFACE_VERIFICATIONCODE_ERROR);
+        }
 
-        User user = new User();
-        BeanUtils.copyProperties(userLoginVO, user);
+        UserCompanyDTO register = userService.register(userRegisterDTO);
 
-        user.setUserCompany(userCompany);
+        UserCompanyVO registerVO = new UserCompanyVO();
+        BeanUtils.copyProperties(register, registerVO);
 
-        User register = userService.register(user);
-
-        return ResponseDataUtil.success(register);
+        return ResponseDataUtil.success(registerVO);
     }
 }
