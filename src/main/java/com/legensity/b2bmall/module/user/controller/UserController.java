@@ -1,6 +1,6 @@
 package com.legensity.b2bmall.module.user.controller;
 
-import com.legensity.b2bmall.module.common.BaseController;
+import com.legensity.b2bmall.common.BaseController;
 import com.legensity.b2bmall.module.user.pojo.User;
 import com.legensity.b2bmall.module.user.service.IUserService;
 import io.swagger.annotations.Api;
@@ -26,6 +26,7 @@ public class UserController extends BaseController {
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private IUserService userService;
+
     /**
      * 用户查询.
      */
