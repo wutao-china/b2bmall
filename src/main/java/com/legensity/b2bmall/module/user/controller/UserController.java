@@ -27,13 +27,10 @@ public class UserController extends BaseController {
     @Autowired
     private IUserService userService;
 
-    /**
-     * 用户查询.
-     */
-    @ApiOperation(value="根据手机号查询用户", notes="根据手机号查询用户", produces="application/json")
+    @ApiOperation(value="根据手机号查询用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "mobile", value = "手机号", paramType = "query", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "Authorization", value = "token", paramType = "header", required = true, dataType = "String")
+            @ApiImplicitParam(name = "mobile", value = "手机号", paramType = "query", required = true),
+            @ApiImplicitParam(name = "Authorization", value = "token", paramType = "header", required = true)
     })
     @RequestMapping(value = "/user/userList", method = RequestMethod.GET)
     @ResponseBody

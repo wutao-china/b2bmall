@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -40,19 +41,13 @@ public class LoginController {
     @Autowired
     private IMessageService messageService;
 
-    /**
-     * 登录
-     * @param mobile
-     * @param password
-     * @return
-     */
     @PostMapping("/login")
-    @ApiOperation(value="登录", notes="用户名密码登录", produces="application/json")
+    @ApiOperation(value="用户名密码登录")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "mobile", value = "手机号", paramType = "query", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "password", value = "密码", paramType = "query", required = true, dataType = "String")
+            @ApiImplicitParam(name = "mobile", value = "手机号", dataType = "String", required = true),
+            @ApiImplicitParam(name = "password", value = "密码", paramType = "query", required = true)
     })
-    public ResponseData login(String mobile, String password) {
+    public ResponseData login(@RequestParam(name = "mobile") String mobile, @RequestParam(name = "password") String password) {
         User user = userService.selectUserWithDetailByMobile(mobile);
         if (user == null || !user.getPassword().equals(password)) {
             return ResponseDataUtil.failure(ErrorCode.INTERFACE_USER_PASSWORD_ERROR);
@@ -67,7 +62,7 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    @ApiOperation(value="注册", notes="用户名密码注册", produces="application/json")
+    @ApiOperation(value="用户名密码注册")
     public ResponseData<UserCompanyVO> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
         if (userRegisterDTO == null || StringUtils.isEmpty(userRegisterDTO.getMobile())) {
             return ResponseDataUtil.failure(ErrorCode.INTERFACE_PARAM_MISS);
