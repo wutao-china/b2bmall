@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,42 +15,39 @@ import java.util.Date;
 public class UserRegisterDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(notes = "用户id", dataType = "Integer")
-    private Integer userId;
-
-    @NotNull
+    @NotBlank
     @ApiModelProperty(notes = "手机号", dataType = "String")
     private String mobile;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(notes = "密码", dataType = "String")
     private String password;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(notes = "用户名 ", dataType = "String")
     private String name;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(notes = "验证码", dataType = "String")
     private String verificationCode;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(notes = "公司名称", dataType = "String")
     private String orgName;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(notes = "公司简称", dataType = "String")
     private String shortName;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(notes = "省", dataType = "String")
     private String province;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(notes = "市", dataType = "String")
     private String city;
 
-    @NotNull
+    @NotBlank
     @ApiModelProperty(notes = "地址", dataType = "String")
     private String address;
 }

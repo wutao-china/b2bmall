@@ -40,7 +40,7 @@ public class User implements Serializable {
     @ApiModelProperty(notes = "盐", dataType = "String")
     private String salt;
 
-    @ApiModelProperty(notes = "状态", dataType = "Integer")
+    @ApiModelProperty(notes = "状态 1 初始状态，2 vip", dataType = "Integer")
     private Integer status;
 
     @ApiModelProperty(notes = "用户名 ", dataType = "String")
@@ -48,6 +48,9 @@ public class User implements Serializable {
 
     @ApiModelProperty(notes = "性别", dataType = "Integer")
     private Integer sex;
+
+    @ApiModelProperty(notes = "公司id", dataType = "Integer")
+    private Integer companyId;
 
     @ApiModelProperty(notes = "创建时间", dataType = "Date")
     private Date createTime;
@@ -68,6 +71,8 @@ public class User implements Serializable {
     public static final String NAME = "name";
 
     public static final String SEX = "sex";
+
+    public static final String COMPANY_ID = "company_id";
 
     public static final String CREATE_TIME = "create_time";
 

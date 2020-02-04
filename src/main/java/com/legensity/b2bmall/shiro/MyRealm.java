@@ -1,6 +1,7 @@
 package com.legensity.b2bmall.shiro;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.legensity.b2bmall.jwt.JwtToken;
 import com.legensity.b2bmall.module.user.pojo.User;
 import com.legensity.b2bmall.module.user.service.IUserService;
@@ -48,8 +49,8 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String username = JwtUtil.getUsername(principals.toString());
-        User user = userService.selectUserWithDetailByMobile(username);
+        //String username = JwtUtil.getUsername(principals.toString());
+        //User user = userService.getOne(new QueryWrapper<User>().eq(User.MOBILE, username));
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         return simpleAuthorizationInfo;
     }
@@ -75,15 +76,15 @@ public class MyRealm extends AuthorizingRealm {
           log.error("token无效(空''或者null都不行!)");
             throw new AuthenticationException("token无效");
         }
-        User userBean = userService.selectUserWithDetailByMobile(username);
-        if (userBean == null) {
+        User user = userService.getOne(new QueryWrapper<User>().eq(User.MOBILE, username));
+        if (user == null) {
             log.error("用户不存在!)");
             throw new AuthenticationException("用户不存在!");
         }
-        if (!JwtUtil.verify(token, username, userBean.getPassword())) {
+        if (!JwtUtil.verify(token, username, user.getPassword())) {
             log.error("用户名或密码错误(token无效或者与登录者不匹配)!)");
             throw new AuthenticationException("用户名或密码错误(token无效或者与登录者不匹配)!");
         }
-        return new SimpleAuthenticationInfo(userBean, token, "my_realm");
+        return new SimpleAuthenticationInfo(user, token, "my_realm");
     }
 }

@@ -45,6 +45,4 @@ public class ResponseData<T> {
         this.msg = msg;
         this.data = data;
     }
-
-
 }

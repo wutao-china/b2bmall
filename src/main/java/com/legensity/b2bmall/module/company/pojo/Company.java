@@ -1,9 +1,12 @@
 package com.legensity.b2bmall.module.company.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,6 +26,7 @@ public class Company implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(notes = "", dataType = "Integer")
+    @TableId(value="ID", type= IdType.AUTO)
     private Integer id;
 
     @ApiModelProperty(notes = "公司名称", dataType = "String")
@@ -52,9 +56,6 @@ public class Company implements Serializable {
     @ApiModelProperty(notes = "状态", dataType = "Integer")
     private Integer status;
 
-    @ApiModelProperty(notes = "联系人id", dataType = "Integer")
-    private Integer userId;
-
     @ApiModelProperty(notes = "创建时间", dataType = "Date")
     private Date createTime;
 
@@ -81,8 +82,6 @@ public class Company implements Serializable {
     public static final String ORG_CODE = "org_code";
 
     public static final String STATUS = "status";
-
-    public static final String USER_ID = "user_id";
 
     public static final String CREATE_TIME = "create_time";
 

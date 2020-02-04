@@ -35,8 +35,4 @@ public class MyException extends RuntimeException {
 
         super(message);
     }
-
-
-
-
 }

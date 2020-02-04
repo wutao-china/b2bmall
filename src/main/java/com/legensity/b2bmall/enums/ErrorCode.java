@@ -6,6 +6,8 @@ public enum ErrorCode {
     INTERFACE_MOBILE_REGISTERED(1001, "手机号已注册"),
     INTERFACE_USER_PASSWORD_ERROR(1002, "用户名或密码错误"),
     INTERFACE_VERIFICATIONCODE_ERROR(1003, "验证码错误"),
+    INTERFACE_MOBILE_UNREGISTERED(1004, "手机号未注册"),
+    INTERFACE_USER_UNAUTHORIZED_OPERATION(1005, "越权操作"),
     ;
 
     private Integer code;

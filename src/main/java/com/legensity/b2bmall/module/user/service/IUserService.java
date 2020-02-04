@@ -10,18 +10,18 @@ import com.legensity.b2bmall.module.user.pojo.UserRegisterDTO;
  * @author jinbin
  * @date 2017-12-01 21:22
  */
-public interface IUserService extends IService<com.legensity.b2bmall.module.user.pojo.User> {
+public interface IUserService extends IService<User> {
     /**
      * 通过mobile查找用户信息
      */
-    User selectUserWithDetailByMobile(String mobile);
+    UserCompanyDTO selectUserWithDetailByMobile(String mobile);
 
     /**
      * 用户注册
      * @param user
      * @return
      */
-    UserCompanyDTO register(UserRegisterDTO user);
+    UserRegisterDTO register(UserRegisterDTO user);
 
     /**
      * 手机号是否存在

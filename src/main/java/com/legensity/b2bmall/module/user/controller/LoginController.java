@@ -1,11 +1,10 @@
 package com.legensity.b2bmall.module.user.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.legensity.b2bmall.enums.ErrorCode;
 import com.legensity.b2bmall.module.meaage.service.IMessageService;
 import com.legensity.b2bmall.module.user.pojo.User;
-import com.legensity.b2bmall.module.user.pojo.UserCompanyDTO;
 import com.legensity.b2bmall.module.user.pojo.UserRegisterDTO;
-import com.legensity.b2bmall.module.user.pojo.UserCompanyVO;
 import com.legensity.b2bmall.module.user.service.IUserService;
 import com.legensity.b2bmall.result.ResponseData;
 import com.legensity.b2bmall.result.ResponseDataUtil;
@@ -15,7 +14,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,14 +46,14 @@ public class LoginController {
             @ApiImplicitParam(name = "password", value = "密码", paramType = "query", required = true)
     })
     public ResponseData login(@RequestParam(name = "mobile") String mobile, @RequestParam(name = "password") String password) {
-        User user = userService.selectUserWithDetailByMobile(mobile);
+        User user = userService.getOne(new QueryWrapper<User>().eq(User.MOBILE, mobile));
         if (user == null || !user.getPassword().equals(password)) {
             return ResponseDataUtil.failure(ErrorCode.INTERFACE_USER_PASSWORD_ERROR);
         }
         //根据电话号码和密码加密生成
         String token = JwtUtil.sign(user.getMobile(), user.getPassword());
         log.debug("登录token={}", token);
-        Map<String, Object> dataMap = new HashMap<>();
+        Map<String, Object> dataMap = new HashMap<>(2);
         dataMap.put("token", token);
         dataMap.put("user", user);
         return ResponseDataUtil.success(dataMap);
@@ -63,7 +61,7 @@ public class LoginController {
 
     @PostMapping("/register")
     @ApiOperation(value="用户名密码注册")
-    public ResponseData<UserCompanyVO> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
+    public ResponseData register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
         if (userRegisterDTO == null || StringUtils.isEmpty(userRegisterDTO.getMobile())) {
             return ResponseDataUtil.failure(ErrorCode.INTERFACE_PARAM_MISS);
         }
@@ -79,11 +77,8 @@ public class LoginController {
             return ResponseDataUtil.failure(ErrorCode.INTERFACE_VERIFICATIONCODE_ERROR);
         }
 
-        UserCompanyDTO register = userService.register(userRegisterDTO);
+        UserRegisterDTO register = userService.register(userRegisterDTO);
 
-        UserCompanyVO registerVO = new UserCompanyVO();
-        BeanUtils.copyProperties(register, registerVO);
-
-        return ResponseDataUtil.success(registerVO);
+        return ResponseDataUtil.success(null);
     }
 }

@@ -1,8 +1,10 @@
 package com.legensity.b2bmall.module.user.pojo;
 
+import com.legensity.b2bmall.module.company.pojo.Company;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,7 +21,7 @@ public class UserCompanyDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(notes = "用户id", dataType = "Integer")
-    private Integer userId;
+    private Integer id;
 
     @ApiModelProperty(notes = "手机号", dataType = "String")
     private String mobile;
@@ -29,9 +31,6 @@ public class UserCompanyDTO implements Serializable {
 
     @ApiModelProperty(notes = "用户名 ", dataType = "String")
     private String name;
-
-    @ApiModelProperty(notes = "性别", dataType = "Integer")
-    private Integer sex;
 
     @ApiModelProperty(notes = "创建时间", dataType = "Date")
     private Date createTime;
@@ -62,4 +61,15 @@ public class UserCompanyDTO implements Serializable {
 
     @ApiModelProperty(notes = "社会信用代码", dataType = "String")
     private String orgCode;
+
+    public UserCompanyDTO(User user, Company company) {
+        super();
+        if(company != null){
+            BeanUtils.copyProperties(company, this);
+            setOrgName(company.getName());
+        }
+        if(user != null){
+            BeanUtils.copyProperties(user, this);
+        }
+    }
 }

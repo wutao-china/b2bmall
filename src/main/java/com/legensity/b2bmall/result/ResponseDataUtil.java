@@ -12,6 +12,18 @@ import com.legensity.b2bmall.enums.ErrorCode;
 public class ResponseDataUtil {
     /**
      * 返回成功描述
+     * @return
+     */
+    public static ResponseData success(){
+        ResponseData ResponseData=new ResponseData();
+        ResponseData.setCode(200);
+        ResponseData.setMsg("成功");
+        ResponseData.setData(null);
+        return ResponseData;
+    }
+
+    /**
+     * 返回成功描述
      * @param data
      * @return
      */
@@ -101,6 +113,19 @@ public class ResponseDataUtil {
         ResponseData ResponseData=new ResponseData();
         ResponseData.setCode(errorCode.getCode());
         ResponseData.setMsg(errorCode.getDesc());
+        ResponseData.setData(null);
+        return ResponseData;
+    }
+
+    /**
+     * 返回失败的描述信息
+     * @param e
+     * @return
+     */
+    public static ResponseData failure(Exception e) {
+        ResponseData ResponseData=new ResponseData();
+        ResponseData.setCode(500);
+        ResponseData.setMsg(e.getMessage());
         ResponseData.setData(null);
         return ResponseData;
     }

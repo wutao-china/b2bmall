@@ -49,6 +49,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/v2/**", "anon");
         filterChainDefinitionMap.put("/csrf/**", "anon");
         filterChainDefinitionMap.put("/message/**", "anon");
+        filterChainDefinitionMap.put("/**/updatePassWord/**", "anon");
 
         //filterChainDefinitionMap.put("/api/**", "authc");
         // 添加自己的过滤器并且取名为jwt
