@@ -6,8 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -25,7 +23,7 @@ import java.util.Date;
 public class Company implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(notes = "", dataType = "Integer")
+    @ApiModelProperty(notes = "id", dataType = "Integer")
     @TableId(value="ID", type= IdType.AUTO)
     private Integer id;
 
@@ -53,8 +51,17 @@ public class Company implements Serializable {
     @ApiModelProperty(notes = "社会信用代码", dataType = "String")
     private String orgCode;
 
-    @ApiModelProperty(notes = "状态", dataType = "Integer")
+    @ApiModelProperty(notes = "状态 0 init 1 审核中 2 审核通过 3 拒绝", dataType = "Integer")
     private Integer status;
+
+    @ApiModelProperty(notes = "联系人用户id", dataType = "Integer")
+    private Integer linkManId;
+
+    @ApiModelProperty(notes = "联系人电话", dataType = "String")
+    private String linkManTel;
+
+    @ApiModelProperty(notes = "联系人姓名", dataType = "String")
+    private String linkManName;
 
     @ApiModelProperty(notes = "创建时间", dataType = "Date")
     private Date createTime;
@@ -82,6 +89,12 @@ public class Company implements Serializable {
     public static final String ORG_CODE = "org_code";
 
     public static final String STATUS = "status";
+
+    public static final String LINK_MAN_ID = "link_man_Id";
+
+    public static final String LINK_MAN_TEL = "link_man_tel";
+
+    public static final String LINK_MAN_NAME = "link_man_name";
 
     public static final String CREATE_TIME = "create_time";
 

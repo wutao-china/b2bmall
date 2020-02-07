@@ -6,7 +6,6 @@ import com.legensity.b2bmall.module.company.pojo.Company;
 import com.legensity.b2bmall.module.company.service.ICompanyService;
 import com.legensity.b2bmall.module.user.dao.UserMapper;
 import com.legensity.b2bmall.module.user.pojo.User;
-import com.legensity.b2bmall.module.user.pojo.UserCompanyDTO;
 import com.legensity.b2bmall.module.user.pojo.UserRegisterDTO;
 import com.legensity.b2bmall.module.user.service.IUserService;
 import org.springframework.beans.BeanUtils;
@@ -24,45 +23,52 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Autowired
     private ICompanyService companyService;
 
+    /**
+     * 注册
+     * type 不是0，1时返回null
+     * @param register
+     * @return
+     */
     @Override
-    public UserCompanyDTO selectUserWithDetailByMobile(String mobile) {
-        User user = userMapper.selectOne(new QueryWrapper<User>().eq(User.MOBILE, mobile));
-        if(user != null){
-            Company company = companyService.getById(user.getCompanyId());
-            return new UserCompanyDTO(user, company);
+    @Transactional(rollbackFor=Exception.class)
+    public UserRegisterDTO register(UserRegisterDTO register){
+        if (register.getType() == 0) { // 经销商
+            // 用户
+            User user = new User();
+            BeanUtils.copyProperties(register, user);
+            //user.setCompanyId(userCompany.getId());
+            user.setCreateTime(new Date());
+            int save = userMapper.insert(user);
+            if (save > 0) {
+                //公司
+                Company userCompany = new Company();
+                BeanUtils.copyProperties(register, userCompany);
+                userCompany.setName(register.getOrgName());
+                userCompany.setCreateTime(user.getCreateTime());
+                userCompany.setLinkManId(user.getId());
+                userCompany.setLinkManName(register.getName());
+                userCompany.setLinkManTel(register.getMobile());
+                companyService.save(userCompany);
+
+                return register;
+            }
+        } else if (register.getType() == 1) { // 管理人员
+            User user = new User();
+            BeanUtils.copyProperties(register, user);
+            user.setCreateTime(new Date());
+            userMapper.insert(user);
+            return register;
         }
 
         return null;
     }
 
     @Override
-    @Transactional(rollbackFor=Exception.class)
-    public UserRegisterDTO register(UserRegisterDTO register){
-        //公司
-        Company userCompany = new Company();
-        BeanUtils.copyProperties(register, userCompany);
-        userCompany.setName(register.getOrgName());
-        userCompany.setCreateTime(new Date());
-        boolean save = companyService.save(userCompany);
-
-        if (save) {
-            User user = new User();
-            BeanUtils.copyProperties(register, user);
-            user.setCompanyId(userCompany.getId());
-            user.setCreateTime(userCompany.getCreateTime());
-            user.setStatus(1);
-            userMapper.insert(user);
-
-            // 注册成功验证码失效
-            //if(userCompany.getId() != null){
-            //}
-        }
-
-        return register;
-    }
-
-    @Override
-    public Boolean checkMobileExist(String mobile) {
-        return userMapper.selectCount(new QueryWrapper<User>().eq(User.MOBILE, mobile)) ==0?false:true;
+    public Boolean checkMobileExist(String mobile, Integer type) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda()
+                .eq(User::getMobile, mobile)
+                .eq(User::getType, type);
+        return userMapper.selectCount(queryWrapper) ==0?false:true;
     }
 }

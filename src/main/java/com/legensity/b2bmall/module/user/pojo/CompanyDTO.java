@@ -11,23 +11,20 @@ import java.util.Date;
 
 /**
  * @program: b2bmall
- * @description: 注册登录VO
+ * @description: 供应商DTO
  * @author: wutao
  * @create: 2020/02/03 13:17
  **/
 @Setter
 @Getter
-public class UserCompanyDTO implements Serializable {
+public class CompanyDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(notes = "用户id", dataType = "Integer")
+    @ApiModelProperty(notes = "公司id", dataType = "Integer")
     private Integer id;
 
     @ApiModelProperty(notes = "手机号", dataType = "String")
     private String mobile;
-
-    @ApiModelProperty(notes = "状态", dataType = "Integer")
-    private Integer status;
 
     @ApiModelProperty(notes = "用户名 ", dataType = "String")
     private String name;
@@ -62,12 +59,19 @@ public class UserCompanyDTO implements Serializable {
     @ApiModelProperty(notes = "社会信用代码", dataType = "String")
     private String orgCode;
 
-    public UserCompanyDTO(User user, Company company) {
+    public CompanyDTO(User user, Company company) {
         super();
         if(company != null){
             BeanUtils.copyProperties(company, this);
             setOrgName(company.getName());
         }
+        if(user != null){
+            BeanUtils.copyProperties(user, this);
+        }
+    }
+
+    public CompanyDTO(User user) {
+        super();
         if(user != null){
             BeanUtils.copyProperties(user, this);
         }

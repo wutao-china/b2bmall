@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.legensity.b2bmall.enums.ErrorCode;
 import com.legensity.b2bmall.module.meaage.service.IMessageService;
 import com.legensity.b2bmall.module.user.pojo.User;
+import com.legensity.b2bmall.module.user.pojo.UserLoginVO;
 import com.legensity.b2bmall.module.user.pojo.UserRegisterDTO;
 import com.legensity.b2bmall.module.user.service.IUserService;
 import com.legensity.b2bmall.result.ResponseData;
@@ -22,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author wutao
@@ -45,7 +44,7 @@ public class LoginController {
             @ApiImplicitParam(name = "mobile", value = "手机号", dataType = "String", required = true),
             @ApiImplicitParam(name = "password", value = "密码", paramType = "query", required = true)
     })
-    public ResponseData login(@RequestParam(name = "mobile") String mobile, @RequestParam(name = "password") String password) {
+    public ResponseData<UserLoginVO> login(@RequestParam(name = "mobile") String mobile, @RequestParam(name = "password") String password) {
         User user = userService.getOne(new QueryWrapper<User>().eq(User.MOBILE, mobile));
         if (user == null || !user.getPassword().equals(password)) {
             return ResponseDataUtil.failure(ErrorCode.INTERFACE_USER_PASSWORD_ERROR);
@@ -53,21 +52,14 @@ public class LoginController {
         //根据电话号码和密码加密生成
         String token = JwtUtil.sign(user.getMobile(), user.getPassword());
         log.debug("登录token={}", token);
-        Map<String, Object> dataMap = new HashMap<>(2);
-        dataMap.put("token", token);
-        dataMap.put("user", user);
-        return ResponseDataUtil.success(dataMap);
+        return ResponseDataUtil.success(new UserLoginVO(user, token));
     }
 
     @PostMapping("/register")
     @ApiOperation(value="用户名密码注册")
     public ResponseData register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
-        if (userRegisterDTO == null || StringUtils.isEmpty(userRegisterDTO.getMobile())) {
-            return ResponseDataUtil.failure(ErrorCode.INTERFACE_PARAM_MISS);
-        }
-
         // 检查手机号
-        if (userService.checkMobileExist(userRegisterDTO.getMobile())) {
+        if (userService.checkMobileExist(userRegisterDTO.getMobile(), userRegisterDTO.getType())) {
             return ResponseDataUtil.failure(ErrorCode.INTERFACE_MOBILE_REGISTERED);
         }
 
@@ -77,8 +69,10 @@ public class LoginController {
             return ResponseDataUtil.failure(ErrorCode.INTERFACE_VERIFICATIONCODE_ERROR);
         }
 
-        UserRegisterDTO register = userService.register(userRegisterDTO);
+        if (userService.register(userRegisterDTO) != null) {
+            return ResponseDataUtil.success(null);
+        }
 
-        return ResponseDataUtil.success(null);
+        return ResponseDataUtil.failure(ErrorCode.INTERFACE_USER_REGISTER_ERROR);
     }
 }

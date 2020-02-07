@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -26,6 +27,10 @@ public class UserRegisterDTO implements Serializable {
     @NotBlank
     @ApiModelProperty(notes = "用户名 ", dataType = "String")
     private String name;
+
+    @NotNull
+    @ApiModelProperty(notes = "用户类型 0 经销商 1 后台管理人员", dataType = "Integer")
+    private Integer type;
 
     @NotBlank
     @ApiModelProperty(notes = "验证码", dataType = "String")

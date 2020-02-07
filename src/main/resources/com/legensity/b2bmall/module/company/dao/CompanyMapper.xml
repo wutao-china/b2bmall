@@ -14,12 +14,15 @@
                     <result column="business_license_url" property="businessLicenseUrl" />
                     <result column="org_code" property="orgCode" />
                     <result column="status" property="status" />
+                    <result column="link_man_id" property="linkManId" />
+                    <result column="link_man_tel" property="linkManTel" />
+                    <result column="link_man_name" property="linkManName" />
                     <result column="create_time" property="createTime" />
                     <result column="update_time" property="updateTime" />
         </resultMap>
 
         <!-- 通用查询结果列 -->
         <sql id="Base_Column_List">
-        id, name, short_name, province, city, address, log_url, business_license_url, org_code, status, create_time, update_time
+        id, name, short_name, province, city, address, log_url, business_license_url, org_code, status, link_man_id,link_man_tel,link_man_name, create_time, update_time
     </sql>
 </mapper>
