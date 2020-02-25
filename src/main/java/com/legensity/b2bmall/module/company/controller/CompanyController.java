@@ -3,12 +3,15 @@ package com.legensity.b2bmall.module.company.controller;
 
 import com.legensity.b2bmall.common.BaseController;
 import com.legensity.b2bmall.module.company.service.ICompanyService;
+import com.legensity.b2bmall.module.user.pojo.CompanyDTO;
 import com.legensity.b2bmall.module.user.pojo.User;
 import com.legensity.b2bmall.result.ResponseData;
 import com.legensity.b2bmall.result.ResponseDataUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +26,8 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/company")
+@Slf4j
+@Api(tags = "公司API接口")
 public class CompanyController extends BaseController {
 
     @Autowired
@@ -34,7 +39,7 @@ public class CompanyController extends BaseController {
             @ApiImplicitParam(name = "Authorization", value = "token", paramType = "header", required = true)
     })
     @RequestMapping(value = "/getCompanyByMobile", method = RequestMethod.GET)
-    public ResponseData getCompanyByMobile(@RequestParam(required = false) String mobile) {
+    public ResponseData<CompanyDTO> getCompanyByMobile(@RequestParam(required = false) String mobile) {
         User user = getCurrentUser();
         if (StringUtils.isEmpty(mobile)) {
             mobile = user.getMobile();
