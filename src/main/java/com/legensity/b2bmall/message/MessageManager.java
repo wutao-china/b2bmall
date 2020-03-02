@@ -1,13 +1,11 @@
 package com.legensity.b2bmall.message;
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.cloopen.rest.sdk.CCPRestSmsSDK;
 import com.legensity.b2bmall.config.SMSConfig;
 import com.legensity.b2bmall.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Objects;

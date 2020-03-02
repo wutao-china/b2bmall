@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @program: b2bmall
@@ -23,7 +24,7 @@ public class UserPasswordDTO {
     @ApiModelProperty(notes = "密码", dataType = "String")
     private String password;
 
-    @NotBlank
+    @NotNull
     @ApiModelProperty(notes = "用户类型 0 经销商 1 后台管理人员", dataType = "Integer")
     private Integer type;
 

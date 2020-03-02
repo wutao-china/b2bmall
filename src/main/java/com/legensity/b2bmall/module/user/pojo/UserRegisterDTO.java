@@ -2,14 +2,10 @@ package com.legensity.b2bmall.module.user.pojo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
-
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
 
 @Setter
 @Getter

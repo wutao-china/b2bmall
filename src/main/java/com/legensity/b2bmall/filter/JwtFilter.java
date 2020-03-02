@@ -44,7 +44,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter implements Filter {
         if (StringUtils.isEmpty(token)) {
             token = httpServletRequest.getParameter("token");
         }
-        JwtToken jwtToken = new JwtToken(token);
+        /*JwtToken jwtToken = new JwtToken(token);
         // 提交给realm进行登入，如果错误他会抛出异常并被捕获
         try {
             getSubject(request, response).login(jwtToken);
@@ -58,8 +58,12 @@ public class JwtFilter extends BasicHttpAuthenticationFilter implements Filter {
             response.setCharacterEncoding("utf-8");
             response.getWriter().print(o);
             return false;
-        }
-
+        }*/
+        JwtToken jwtToken = new JwtToken(token);
+        // 提交给realm进行登入，如果错误他会抛出异常并被捕获
+        getSubject(request, response).login(jwtToken);
+        // 如果没有抛出异常则代表登入成功，返回true
+        return true;
     }
 
     /**
@@ -72,13 +76,17 @@ public class JwtFilter extends BasicHttpAuthenticationFilter implements Filter {
      */
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
-        try {
-            return executeLogin(request, response);
-            // return true;有一篇博客这里直接返回true是不正确的,在这里我特别指出一下
-        } catch (Exception e) {
-            log.error("JwtFilter过滤验证失败!");
-            return false;
-        }
+        //判断请求的请求头是否带上 "Token"
+
+            //如果存在，则进入 executeLogin 方法执行登入，检查 token 是否正确
+            try {
+                executeLogin(request, response);
+                return true;
+            } catch (Exception e) {
+                //token 错误
+                e.printStackTrace();
+            }
+        return true;
     }
 
 

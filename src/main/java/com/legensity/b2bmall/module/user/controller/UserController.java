@@ -35,7 +35,7 @@ public class UserController extends BaseController {
     private IMessageService messageService;
 
     @ApiOperation(value = "短信验证码修改密码")
-    @RequestMapping(value = "/updateUserPassWord", method = RequestMethod.GET)
+    @PostMapping(value = "/updateUserPassWord")
     public ResponseData updateUserPassWord(@Valid @RequestBody UserPasswordDTO passwordDTO) {
         // 检查手机号
         if (!userService.checkMobileExist(passwordDTO.getMobile(), passwordDTO.getType())) {
